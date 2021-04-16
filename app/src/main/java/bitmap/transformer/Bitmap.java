@@ -4,6 +4,7 @@
 package bitmap.transformer;
 
 import javax.imageio.ImageIO;
+import java.awt.*;
 import java.awt.image.BufferedImage;
 import java.io.File;
 import java.io.IOException;
@@ -23,6 +24,7 @@ public class Bitmap {
         File f =new File(fileName);
         this.pixelData = ImageIO.read(f);
         System.out.println("Reading complete.");
+        System.out.println(this.pixelData);
 
     }
 
@@ -36,19 +38,61 @@ public class Bitmap {
 
     }
 
+    //Converting image to grayscale
+    public void convertToGrayscale(){
+        for (int i = 0; i < this.pixelData.getWidth(); i++) {
+            for (int j = 0; j < this.pixelData.getHeight(); j++) {
+                //get RGB color on each pixel
+                Color c = new Color(this.pixelData.getRGB(i,j));
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                int a = c.getAlpha();
+                //turning color to grayscale
+                int gr = (r+g+b)/3;
 
-//    public static void readImg() throws IOException {
-//      BufferedImage image=null;
-//      File imgFile=null;
-//      int width=2;
-//      int height=2;
-//
-//  imgFile=new File("mario.bmp");
-//  image=new BufferedImage(width,height,BufferedImage.TYPE_INT_ARGB);
-//  image= ImageIO.read(imgFile);
-//   byte[]  pixels= (byte[]) image.getRaster().getDataElements(0,0,image.getWidth(),image.getHeight(),null);
-//
-//           System.out.println(pixels);
-//
-//  }
+                //Create Gray Color
+                Color grayColor = new Color(gr,gr,gr,a);
+                this.pixelData.setRGB(i,j,grayColor.getRGB());
+
+            }
+            
+        }
+    }
+
+    //Converting image to green
+    public void convertToGreens() {
+        for (int i=0; i < this.pixelData.getWidth(); i++){
+            for( int j=0; j < this.pixelData.getHeight(); j++){
+                //getting RGB color on each pixel
+                Color c = new Color(this.pixelData.getRGB(i, j));
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                int a = c.getAlpha();
+
+                Color greenColor = new Color (0, g, 0, a);
+                this.pixelData.setRGB(i, j, greenColor.getRGB());
+            }
+        }
+    }
+
+    //Converting image to pink box
+    public void convertImageToPinkBox() {
+        for (int i = 0; i < this.pixelData.getWidth(); i++){
+            for( int j = 0; j < this.pixelData.getHeight(); j++){
+                //getting RGB color on each pixel
+                Color c = new Color(this.pixelData.getRGB(i, j));
+                int r = c.getRed();
+                int g = c.getGreen();
+                int b = c.getBlue();
+                int a = c.getAlpha();
+
+                Color opacity = new Color (255,0,144,a);
+                this.pixelData.setRGB(i, j, opacity.getRGB());
+            }
+        }
+    }
+
+
 }
